@@ -3,7 +3,7 @@
   "displayName": "VScroll",
   "description": "Read light novels and web articles inside VS Code.",
   "version": "0.0.1",
-  "publisher": "local",
+  "publisher": "ThiagoCosta360",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -27,6 +27,10 @@
         {
           "id": "vscroll.library",
           "name": "Library"
+        },
+        {
+          "id": "vscroll.plugins",
+          "name": "Plugins"
         }
       ]
     },
@@ -55,8 +59,28 @@
       },
       {
         "command": "vscroll.refresh",
-        "title": "VScroll: Refresh",
+        "title": "VScroll: Refresh Library",
         "icon": "$(refresh)"
+      },
+      {
+        "command": "vscroll.refreshPlugins",
+        "title": "VScroll: Refresh Available Plugins",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "vscroll.installPlugin",
+        "title": "VScroll: Install Plugin",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "vscroll.uninstallPlugin",
+        "title": "VScroll: Uninstall Plugin",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "vscroll.browsePlugin",
+        "title": "VScroll: Browse Plugin",
+        "icon": "$(search)"
       }
     ],
     "menus": {
@@ -70,6 +94,11 @@
           "command": "vscroll.refresh",
           "when": "view == vscroll.library",
           "group": "navigation@2"
+        },
+        {
+          "command": "vscroll.refreshPlugins",
+          "when": "view == vscroll.plugins",
+          "group": "navigation@1"
         }
       ],
       "view/item/context": [
@@ -81,6 +110,21 @@
         {
           "command": "vscroll.removeNovel",
           "when": "view == vscroll.library && viewItem == novel"
+        },
+        {
+          "command": "vscroll.browsePlugin",
+          "when": "view == vscroll.plugins && (viewItem == plugin.builtin || viewItem == plugin.installed)",
+          "group": "inline"
+        },
+        {
+          "command": "vscroll.uninstallPlugin",
+          "when": "view == vscroll.plugins && viewItem == plugin.installed",
+          "group": "inline"
+        },
+        {
+          "command": "vscroll.installPlugin",
+          "when": "view == vscroll.plugins && viewItem == plugin.available",
+          "group": "inline"
         }
       ]
     },
@@ -94,17 +138,17 @@
         },
         "vscroll.fontSize": {
           "type": "number",
-          "default": 16,
-          "description": "Reader font size in pixels."
+          "default": 0,
+          "description": "Reader font size in pixels. 0 = use the editor font size."
         },
         "vscroll.fontFamily": {
           "type": "string",
-          "default": "Georgia, 'Times New Roman', serif",
-          "description": "Reader font family."
+          "default": "",
+          "description": "Reader font family. Leave empty to use the editor font."
         },
         "vscroll.maxWidth": {
           "type": "number",
-          "default": 720,
+          "default": 800,
           "description": "Reader max content width in pixels."
         }
       }
