@@ -1,0 +1,129 @@
+{
+  "name": "vscroll",
+  "displayName": "VScroll",
+  "description": "Read light novels and web articles inside VS Code.",
+  "version": "0.0.1",
+  "publisher": "local",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "vscroll",
+          "title": "VScroll",
+          "icon": "$(book)"
+        }
+      ]
+    },
+    "views": {
+      "vscroll": [
+        {
+          "id": "vscroll.library",
+          "name": "Library"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "vscroll.addNovel",
+        "title": "VScroll: Add Novel",
+        "icon": "$(add)"
+      },
+      {
+        "command": "vscroll.addChapter",
+        "title": "VScroll: Add Chapter to Novel"
+      },
+      {
+        "command": "vscroll.removeNovel",
+        "title": "VScroll: Remove Novel",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "vscroll.openChapter",
+        "title": "VScroll: Open Chapter"
+      },
+      {
+        "command": "vscroll.openUrl",
+        "title": "VScroll: Read URL"
+      },
+      {
+        "command": "vscroll.refresh",
+        "title": "VScroll: Refresh",
+        "icon": "$(refresh)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "vscroll.addNovel",
+          "when": "view == vscroll.library",
+          "group": "navigation@1"
+        },
+        {
+          "command": "vscroll.refresh",
+          "when": "view == vscroll.library",
+          "group": "navigation@2"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "vscroll.addChapter",
+          "when": "view == vscroll.library && viewItem == novel",
+          "group": "inline"
+        },
+        {
+          "command": "vscroll.removeNovel",
+          "when": "view == vscroll.library && viewItem == novel"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "VScroll",
+      "properties": {
+        "vscroll.userAgent": {
+          "type": "string",
+          "default": "Mozilla/5.0 (compatible; VScroll/0.1)",
+          "description": "User-Agent header to use when fetching chapters."
+        },
+        "vscroll.fontSize": {
+          "type": "number",
+          "default": 16,
+          "description": "Reader font size in pixels."
+        },
+        "vscroll.fontFamily": {
+          "type": "string",
+          "default": "Georgia, 'Times New Roman', serif",
+          "description": "Reader font family."
+        },
+        "vscroll.maxWidth": {
+          "type": "number",
+          "default": 720,
+          "description": "Reader max content width in pixels."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "watch": "tsc -p . -w",
+    "vscode:prepublish": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@mozilla/readability": "^0.5.0",
+    "cheerio": "^1.2.0",
+    "jsdom": "^24.0.0"
+  }
+}
