@@ -4,6 +4,7 @@
   "description": "Read light novels and web articles inside VS Code.",
   "version": "0.0.1",
   "publisher": "ThiagoCosta360",
+  "repository": { "type": "git", "url": "https://github.com/ThiagoCosta360/vscroll.git" },
   "engines": {
     "vscode": "^1.85.0"
   },
